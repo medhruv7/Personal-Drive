@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)">
+  <title>Local Drive</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%233b82f6' d='M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-row">
+      <a class="brand" href="#/">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>Local Drive</span>
+      </a>
+      <div class="actions">
+        <button id="btn-mkdir" class="btn" type="button" title="New folder">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM12 10v6M9 13h6"/></svg>
+          <span class="label">New folder</span>
+        </button>
+        <button id="btn-upload" class="btn primary" type="button" title="Upload files">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+          <span class="label">Upload</span>
+        </button>
+      </div>
+    </div>
+    <nav id="crumbs" class="crumbs" aria-label="Folder path"></nav>
+  </header>
+
+  <main>
+    <div class="list-head" role="row">
+      <button class="col-name sort" data-key="name" type="button">Name</button>
+      <button class="col-size sort" data-key="size" type="button">Size</button>
+      <button class="col-date sort" data-key="modTime" type="button">Modified</button>
+      <span class="col-act"></span>
+    </div>
+    <ul id="list" class="list" aria-live="polite"></ul>
+    <div id="empty" class="empty" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <p>This folder is empty</p>
+      <p class="muted">Upload files or drop them here.</p>
+    </div>
+    <div id="loading" class="empty muted" hidden>Loading…</div>
+  </main>
+
+  <button id="fab" class="fab" type="button" aria-label="Upload files">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+  </button>
+
+  <input id="file-input" type="file" multiple hidden>
+
+  <section id="uploads" class="uploads" hidden>
+    <div class="uploads-head">
+      <strong id="uploads-title">Uploading</strong>
+      <button id="uploads-close" class="icon-btn" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <ul id="uploads-list"></ul>
+  </section>
+
+  <div id="drop" class="drop" hidden><div>Drop files to upload</div></div>
+
+  <dialog id="mkdir-dialog">
+    <form method="dialog" id="mkdir-form">
+      <h2>New folder</h2>
+      <input id="mkdir-name" name="name" autocomplete="off" placeholder="Folder name" required maxlength="255">
+      <p id="mkdir-error" class="error" hidden></p>
+      <div class="dialog-actions">
+        <button class="btn" value="cancel" formnovalidate type="submit">Cancel</button>
+        <button class="btn primary" value="ok" type="submit">Create</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
